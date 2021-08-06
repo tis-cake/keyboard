@@ -1,0 +1,8 @@
+const AppRoute = {
+  PAGE_DEFAULT: 'PAGE_PREVIEW',
+  PAGE_PREVIEW: 'PAGE_PREVIEW',
+  PAGE_FORM: 'PAGE_FORM',
+  PAGE_FINAL: 'PAGE_FINAL',
+};
+
+export { AppRoute };
