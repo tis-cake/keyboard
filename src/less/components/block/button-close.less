@@ -1,0 +1,43 @@
+.button-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 88px;
+  height: 52px;
+
+  background-color: @color-white;
+  border: 2px solid @color-black;
+
+  transition: @s;
+
+  &:hover,
+  &:focus {
+    background-color: @color-black;
+
+    &::before,
+    &::after {
+      background-color: @color-white;
+    }
+  }
+
+  &::before,
+  &::after {
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: 50%;
+    width: 28px;
+    height: 3px;
+
+    background-color: @color-black;
+    transition: @s;
+  }
+
+  &::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  &::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+}

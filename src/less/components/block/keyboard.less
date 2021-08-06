@@ -1,0 +1,21 @@
+.keyboard {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.keyboard__btn {
+  border: 2px solid @color-black;
+
+  &--reset {
+    width: auto;
+    grid-column: 1/3;
+  }
+
+  &:hover,
+  &:focus {
+    color: @color-white;
+    background-color: @color-black;
+  }
+}
