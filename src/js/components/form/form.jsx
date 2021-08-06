@@ -1,10 +1,28 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import InputMask from 'react-input-mask';
 
 import { AppRoute } from '../../const';
 import { PageContext } from '../../context';
 
+const REGEXP_PATTERN = /\d/g;
+const MAX_COUNT_NUMBERS = 11;
+
 function Form() {
   const setCurrentPage = useContext(PageContext);
+  const [tel, setTel] = useState('');
+  const [checked, setChecked] = useState(false);
+
+  // const handleTelChange = (evt) => {
+  //   setTel(evt.currentTarget.value);
+  // };
+
+  // const handleCheckboxChange = () => {
+  //   setChecked(!checked);
+  // };
+
+  const isValidityTel = (!!tel && tel.match(REGEXP_PATTERN).length === MAX_COUNT_NUMBERS);
+  const isValidityCheckbox = checked;
+  const isValidityForm = (isValidityTel && isValidityCheckbox);
 
   return (
     <form
@@ -16,12 +34,14 @@ function Form() {
         Введите ваш номер мобильного телефона
       </h2>
 
-      <input
+      <InputMask
+        mask="+7(999)999-99-99"
+        placeholder="+7(___)___-__-__"
         className="form__input"
         type="tel"
         name="TEL"
-        placeholder="+7(___)___-__-__"
         required
+        onChange={(evt) => setTel(evt.currentTarget.value)}
       />
 
       <p className="form__desc">
@@ -47,6 +67,8 @@ function Form() {
         type="checkbox"
         id="checkboxUser"
         required
+        checked={checked}
+        onChange={() => setChecked(!checked)}
       />
       <label
         className="form__checkbox-label"
@@ -58,7 +80,7 @@ function Form() {
       <button
         className="form__submit btn"
         type="submit"
-        // disabled
+        disabled={!isValidityForm}
         onClick={() => setCurrentPage(AppRoute.PAGE_FINAL)}
       >
         Подтвердить номер
