@@ -17,8 +17,8 @@ const undoNum = (currentNum) => {
   return chars.join('');
 };
 
-const addNum = (currentNum, currentValue) => {
-  return currentNum.replace(CHAR_MASK, currentValue);
+const addNum = (currentNum, inputValue) => {
+  return currentNum.replace(CHAR_MASK, inputValue);
 };
 
 export {

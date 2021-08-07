@@ -1,13 +1,27 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import InputMask from 'react-input-mask';
 
-import { AppRoute } from '../../const';
 import { PageContext } from '../../context';
 import { undoNum, addNum } from '../../utils/number';
+import {
+  TEL_UNDO_VALUE,
+  AppRoute,
+  ArrowAction,
+  KeyCodeInputValue,
+} from '../../const';
 
 const MAX_COUNT_DIGIT = 11;
 const TEL_INIT_VALUE = '+7(___)___-__-__';
-const TEL_UNDO_VALUE = 'UNDO';
+
+const updateTelState = (setTel, inputValue) => {
+  setTel((prev) => {
+    if (inputValue === TEL_UNDO_VALUE) {
+      return undoNum(prev);
+    }
+
+    return addNum(prev, inputValue);
+  });
+};
 
 function Form() {
   const setCurrentPage = useContext(PageContext);
@@ -26,13 +40,8 @@ function Form() {
       return;
     }
 
-    setTel((prev) => {
-      if (evt.target.value === TEL_UNDO_VALUE) {
-        return undoNum(prev);
-      }
-
-      return addNum(prev, evt.target.value);
-    });
+    const inputValue = evt.target.value;
+    updateTelState(setTel, inputValue);
   };
 
   const handleKeyboardFocus = (evt) => {
@@ -43,11 +52,29 @@ function Form() {
     console.log(evt.target);
   };
 
-  console.log(tel);
+  const handleKeyPress = (evt) => {
+    if (KeyCodeInputValue[evt.keyCode]) {
+      const inputValue = KeyCodeInputValue[evt.keyCode];
+
+      if (ArrowAction[inputValue]) {
+        console.log('это навигация', inputValue);
+        return;
+      }
+
+      updateTelState(setTel, inputValue);
+    }
+  };
 
   const isValidityTel = (!!tel && tel.match(/\d/g).length === MAX_COUNT_DIGIT);
   const isValidityCheckbox = checked;
   const isValidityForm = (isValidityTel && isValidityCheckbox);
+
+  console.log(tel);
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyPress);
+    return () => { window.removeEventListener('keydown', handleKeyPress); };
+  }, []);
 
   return (
     <form
