@@ -3,7 +3,14 @@
 }
 
 .form {
+  position: relative;
   text-align: center;
+
+  &--invalid {
+    .form__input {
+      color: @color-red;
+    }
+  }
 }
 
 .form__title {
@@ -16,21 +23,12 @@
 .form__input {
   width: 100%;
   margin-bottom: 13px;
-  // padding-left: 28px;
-  // padding-right: 28px;
 
   font-weight: 700;
   font-size: 32px;
   line-height: 37px;
 
   text-align: center;
-
-  // transition: @s;
-
-  // &:focus {
-  //   padding-left: 0;
-  //   padding-right: 0;
-  // }
 }
 
 .form__desc {
@@ -40,19 +38,25 @@
 
 .form__keyboard {
   margin-top: 32px;
-  margin-bottom: 34px;
+  margin-bottom: 32px;
 }
 
 .form__checkbox-input {
   &:checked + .form__checkbox-label::after {
     opacity: 1;
   }
+
+  &:focus + .form__checkbox-label {
+    color: @color-black;
+  }
 }
 
 .form__checkbox-label {
   box-sizing: border-box;
 
-  position: relative;
+  position: absolute;
+  bottom: 64px;
+
   display: flex;
   align-items: center;
   height: 52px;
@@ -63,6 +67,8 @@
   font-size: 14px;
   line-height: 16px;
   color: @color-gray-1;
+
+  transition: @s;
 
   .no-select;
 
@@ -93,13 +99,31 @@
     background-size: contain;
 
     opacity: 0;
-    transition: @s;
+    transition: inherit;
   }
+
+  &:hover {
+    color: @color-black;
+  }
+}
+
+.form__notify-invalid {
+  display: block;
+  position: absolute;
+  bottom: 80px;
+  width: 100%;
+
+  color: @color-red;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  text-transform: uppercase;
+  text-align: center;
 }
 
 .form__submit {
   width: 100%;
-  margin-top: 13px;
+  margin-top: 66px;
 
   color: @color-white;
   border: 2px solid @color-black;
@@ -107,6 +131,13 @@
 
   &:disabled {
     color: @color-gray-2;
+    border-color: currentColor;
+    background-color: transparent;
+  }
+
+  &:hover,
+  &:focus {
+    color: @color-black;
     border-color: currentColor;
     background-color: transparent;
   }

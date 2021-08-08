@@ -13,30 +13,27 @@
   margin-bottom: calc(var(--gap-container-block) + var(--gap-decor-bottom));
 
   background-color: @color-black;
-  background-image: url('../../../assets/img/1.png');
+  background-image: url('../../../assets/img/2.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
 
 
-  &--bg-active {
-    background-image: url('../../../assets/img/2.png');
+  &--bg-disabled {
+    background-image: url('../../../assets/img/1.png');
   }
 
   &::before {
     content: '';
     position: absolute;
     z-index: -1;
-    // top: 50%;
     left: 50%;
-    // transform: translate(-50%, -50%);
     transform: translateX(-50%);
 
     width: 1306px;
     height: 886px;
 
     top: -16px;
-    // left: -14px;
 
     background-image: url('../../../assets/img/mockup-tv.png');
     background-repeat: no-repeat;
