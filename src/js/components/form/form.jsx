@@ -2,7 +2,10 @@ import React, { useContext, useState, useEffect, useRef } from 'react';
 import InputMask from 'react-input-mask';
 
 import { Keyboard } from '../keyboard/keyboard';
+import { FormCheckbox } from './form-checkbox/form-checkbox';
+import { NotifyInvalid } from '../notify-invalid/notify-invalid';
 
+import { api } from '../../server/api';
 import { PageContext } from '../../context';
 import { updateTelState, updateFocus } from '../../utils/number';
 import {
@@ -22,10 +25,22 @@ const TEL_INIT_VALUE = '+7(___)___-__-__';
 let buttonFocusIndex;
 let buttonKeyboardFocus;
 
+const validateTelPerServer = (number, setValidatedTelServer, setInvalidatedTelServer) => {
+  api(number).then((data) => {
+    if (!data.valid) {
+      setInvalidatedTelServer(true);
+    }
+
+    setValidatedTelServer(data.valid);
+  });
+};
+
 function Form() {
   const setCurrentPage = useContext(PageContext);
   const [tel, setTel] = useState(TEL_INIT_VALUE);
   const [checked, setChecked] = useState(false);
+  const [validatedTelServer, setValidatedTelServer] = useState(false);
+  const [invalidatedTelServer, setInvalidatedTelServer] = useState(false);
   const buttons = new Array(KEYBOARD_BUTTONS_COUNT).fill('').map(() => useRef(null));
 
   const handleTelChange = (evt) => {
@@ -75,7 +90,7 @@ function Form() {
   };
 
   const handleWindowKeyPress = (evt) => {
-    if (KeyCodeInputValue[evt.keyCode]) {
+    if (KeyCodeInputValue[evt.keyCode] || KeyCodeInputValue[evt.keyCode] === TEL_ZERO_VALUE) {
       const inputValue = KeyCodeInputValue[evt.keyCode];
 
       if (ArrowAction[inputValue] && buttonKeyboardFocus) {
@@ -89,18 +104,32 @@ function Form() {
     }
   };
 
-  const isValidityTel = (!!tel && tel.match(/\d/g).length === MAX_COUNT_DIGIT);
-  const isValidityCheckbox = checked;
-  const isValidityForm = (isValidityTel && isValidityCheckbox);
+  const isValidatedCheckbox = checked;
+  const isValidatedTelLength = (!!tel && tel.match(/\d/g).length === MAX_COUNT_DIGIT);
+  const isValidatedForm = (validatedTelServer && isValidatedTelLength && isValidatedCheckbox);
+
+  const formInvalidClass = invalidatedTelServer
+    ? 'form--invalid'
+    : '';
 
   useEffect(() => {
     window.addEventListener('keydown', handleWindowKeyPress);
     return () => { window.removeEventListener('keydown', handleWindowKeyPress); };
   }, []);
 
+  useEffect(() => {
+    if (isValidatedTelLength) {
+      validateTelPerServer(tel, setValidatedTelServer, setInvalidatedTelServer);
+    }
+
+    if (!isValidatedTelLength) {
+      setInvalidatedTelServer(false);
+    }
+  }, [isValidatedTelLength]);
+
   return (
     <form
-      className="form"
+      className={`form ${formInvalidClass}`}
       action="#"
       method="post"
     >
@@ -130,25 +159,12 @@ function Form() {
         handleKeyboardBlur={handleKeyboardBlur}
       />
 
-      <input
-        className="form__checkbox-input visually-hidden"
-        type="checkbox"
-        id="checkboxUser"
-        required
-        checked={checked}
-        onChange={() => setChecked(!checked)}
-      />
-      <label
-        className="form__checkbox-label"
-        htmlFor="checkboxUser"
-      >
-        Согласие на обработку персональных данных
-      </label>
+      {invalidatedTelServer ? <NotifyInvalid /> : <FormCheckbox checked={checked} setChecked={setChecked} />}
 
       <button
         className="form__submit btn"
         type="submit"
-        disabled={!isValidityForm}
+        disabled={!isValidatedForm}
         onClick={() => setCurrentPage(AppRoute.PAGE_FINAL)}
       >
         Подтвердить номер
