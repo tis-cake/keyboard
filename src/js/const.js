@@ -5,7 +5,7 @@ const BUTTON_UNDO_INDEX = 9;
 const BUTTON_ZERO_INDEX = 10;
 
 const AppRoute = {
-  PAGE_DEFAULT: 'PAGE_FORM',
+  PAGE_DEFAULT: 'PAGE_PREVIEW',
   PAGE_PREVIEW: 'PAGE_PREVIEW',
   PAGE_FORM: 'PAGE_FORM',
   PAGE_FINAL: 'PAGE_FINAL',
@@ -30,6 +30,8 @@ const KeyCode = {
   NUMBER_NINE: 57,
   NUMBER_ZERO: 48,
 
+  ENTER: 13,
+  SPACE: 32,
   BACKSPACE: 8,
   ARROW_LEFT: 37,
   ARROW_UP: 38,
@@ -65,5 +67,6 @@ export {
 
   AppRoute,
   ArrowAction,
+  KeyCode,
   KeyCodeInputValue,
 };

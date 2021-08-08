@@ -1,9 +1,16 @@
+@keyframes show {
+  0%   { transform: translateX(110%) }
+  100% { transform: translateX(0) }
+}
+
 .qr {
   box-sizing: border-box;
 
   position: absolute;
   top: 22rem;
   right: 0;
+
+  transform: translateX(110%);
 
   display: flex;
   flex-direction: column;
@@ -17,6 +24,11 @@
 
   text-align: center;
   background-color: @color-primary;
+
+  animation-delay: 5s;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-name: show;
 }
 
 .qr__title,

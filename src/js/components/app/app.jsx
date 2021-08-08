@@ -10,14 +10,10 @@ import { PageContext } from '../../context';
 function App() {
   const [currentPage, setCurrentPage] = useState(AppRoute.PAGE_DEFAULT);
 
-  const bgPreviewClass = (currentPage === AppRoute.PAGE_PREVIEW)
-    ? 'hero--bg-disabled'
-    : '';
-
   return (
     <PageContext.Provider value={setCurrentPage}>
       <main>
-        <section className={`hero ${bgPreviewClass}`}>
+        <section className='hero'>
           <h1 className="visually-hidden">Промо раздел с вводом номера</h1>
 
           {(currentPage === AppRoute.PAGE_PREVIEW) && <PagePreview />}
