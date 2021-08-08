@@ -1,32 +1,32 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import InputMask from 'react-input-mask';
 
+import { Keyboard } from '../keyboard/keyboard';
+
 import { PageContext } from '../../context';
-import { undoNum, addNum } from '../../utils/number';
+import { updateTelState, updateFocus } from '../../utils/number';
 import {
   TEL_UNDO_VALUE,
+  TEL_ZERO_VALUE,
+  BUTTON_UNDO_INDEX,
+  BUTTON_ZERO_INDEX,
   AppRoute,
   ArrowAction,
   KeyCodeInputValue,
 } from '../../const';
 
+const KEYBOARD_BUTTONS_COUNT = 11;
 const MAX_COUNT_DIGIT = 11;
 const TEL_INIT_VALUE = '+7(___)___-__-__';
 
-const updateTelState = (setTel, inputValue) => {
-  setTel((prev) => {
-    if (inputValue === TEL_UNDO_VALUE) {
-      return undoNum(prev);
-    }
-
-    return addNum(prev, inputValue);
-  });
-};
+let buttonFocusIndex;
+let buttonKeyboardFocus;
 
 function Form() {
   const setCurrentPage = useContext(PageContext);
   const [tel, setTel] = useState(TEL_INIT_VALUE);
   const [checked, setChecked] = useState(false);
+  const buttons = new Array(KEYBOARD_BUTTONS_COUNT).fill('').map(() => useRef(null));
 
   const handleTelChange = (evt) => {
     if (!evt.currentTarget.value) {
@@ -49,15 +49,39 @@ function Form() {
       return;
     }
 
-    console.log(evt.target);
+    const inputValue = Number(evt.target.value);
+
+    switch (inputValue) {
+      case TEL_UNDO_VALUE: {
+        buttonFocusIndex = BUTTON_UNDO_INDEX;
+        break;
+      }
+
+      case TEL_ZERO_VALUE: {
+        buttonFocusIndex = BUTTON_ZERO_INDEX;
+        break;
+      }
+
+      default: {
+        buttonFocusIndex = inputValue - 1;
+      }
+    }
+
+    buttonKeyboardFocus = true;
   };
 
-  const handleKeyPress = (evt) => {
+  const handleKeyboardBlur = () => {
+    buttonKeyboardFocus = false;
+  };
+
+  const handleWindowKeyPress = (evt) => {
     if (KeyCodeInputValue[evt.keyCode]) {
       const inputValue = KeyCodeInputValue[evt.keyCode];
 
-      if (ArrowAction[inputValue]) {
-        console.log('это навигация', inputValue);
+      if (ArrowAction[inputValue] && buttonKeyboardFocus) {
+        evt.preventDefault();
+        updateFocus(buttons, buttonFocusIndex, inputValue);
+
         return;
       }
 
@@ -69,11 +93,9 @@ function Form() {
   const isValidityCheckbox = checked;
   const isValidityForm = (isValidityTel && isValidityCheckbox);
 
-  console.log(tel);
-
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyPress);
-    return () => { window.removeEventListener('keydown', handleKeyPress); };
+    window.addEventListener('keydown', handleWindowKeyPress);
+    return () => { window.removeEventListener('keydown', handleWindowKeyPress); };
   }, []);
 
   return (
@@ -94,30 +116,19 @@ function Form() {
         name="TEL"
         required
         value={tel}
-        onChange={(evt) => handleTelChange(evt)}
+        onChange={handleTelChange}
       />
 
       <p className="form__desc">
         и с Вами свяжется наш менеждер для дальнейшей консультации
       </p>
 
-      <div
-        className="form__keyboard keyboard"
-        onClick={handleKeyboardClick}
-        onFocus={handleKeyboardFocus}
-      >
-        <button className="keyboard__btn btn" type="button" value="1">1</button>
-        <button className="keyboard__btn btn" type="button" value="2">2</button>
-        <button className="keyboard__btn btn" type="button" value="3">3</button>
-        <button className="keyboard__btn btn" type="button" value="4">4</button>
-        <button className="keyboard__btn btn" type="button" value="5">5</button>
-        <button className="keyboard__btn btn" type="button" value="6">6</button>
-        <button className="keyboard__btn btn" type="button" value="7">7</button>
-        <button className="keyboard__btn btn" type="button" value="8">8</button>
-        <button className="keyboard__btn btn" type="button" value="9">9</button>
-        <button className="keyboard__btn keyboard__btn--reset btn" type="button" value={TEL_UNDO_VALUE}>Стереть</button>
-        <button className="keyboard__btn btn" type="button" value="0">0</button>
-      </div>
+      <Keyboard
+        buttons={buttons}
+        handleKeyboardClick={handleKeyboardClick}
+        handleKeyboardFocus={handleKeyboardFocus}
+        handleKeyboardBlur={handleKeyboardBlur}
+      />
 
       <input
         className="form__checkbox-input visually-hidden"

@@ -1,7 +1,11 @@
-const TEL_UNDO_VALUE = 'UNDO';
+const TEL_UNDO_TITLE = 'Стереть';
+const TEL_UNDO_VALUE = -1;
+const TEL_ZERO_VALUE = 0;
+const BUTTON_UNDO_INDEX = 9;
+const BUTTON_ZERO_INDEX = 10;
 
 const AppRoute = {
-  PAGE_DEFAULT: 'PAGE_PREVIEW',
+  PAGE_DEFAULT: 'PAGE_FORM',
   PAGE_PREVIEW: 'PAGE_PREVIEW',
   PAGE_FORM: 'PAGE_FORM',
   PAGE_FINAL: 'PAGE_FINAL',
@@ -43,7 +47,7 @@ const KeyCodeInputValue = {
   [KeyCode.NUMBER_SEVEN]: 7,
   [KeyCode.NUMBER_EIGHT]: 8,
   [KeyCode.NUMBER_NINE]: 9,
-  [KeyCode.NUMBER_ZERO]: 0,
+  [KeyCode.NUMBER_ZERO]: TEL_ZERO_VALUE,
   [KeyCode.BACKSPACE]: TEL_UNDO_VALUE,
 
   [KeyCode.ARROW_LEFT]: ArrowAction.ARROW_LEFT,
@@ -53,7 +57,12 @@ const KeyCodeInputValue = {
 };
 
 export {
+  TEL_UNDO_TITLE,
   TEL_UNDO_VALUE,
+  TEL_ZERO_VALUE,
+  BUTTON_UNDO_INDEX,
+  BUTTON_ZERO_INDEX,
+
   AppRoute,
   ArrowAction,
   KeyCodeInputValue,
