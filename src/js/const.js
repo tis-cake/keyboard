@@ -4,6 +4,9 @@ const TEL_ZERO_VALUE = 0;
 const BUTTON_UNDO_INDEX = 9;
 const BUTTON_ZERO_INDEX = 10;
 
+const FIGCAPTION_QR_PREVIEW = 'мой GitHub';
+const FIGCAPTION_QR_ASIDE = 'посмотри другие работы на GitHub';
+
 const AppRoute = {
   PAGE_DEFAULT: 'PAGE_PREVIEW',
   PAGE_PREVIEW: 'PAGE_PREVIEW',
@@ -64,9 +67,10 @@ export {
   TEL_ZERO_VALUE,
   BUTTON_UNDO_INDEX,
   BUTTON_ZERO_INDEX,
+  FIGCAPTION_QR_PREVIEW,
+  FIGCAPTION_QR_ASIDE,
 
   AppRoute,
   ArrowAction,
-  KeyCode,
   KeyCodeInputValue,
 };

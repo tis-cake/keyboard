@@ -4,13 +4,16 @@ function Done() {
   return (
     <section className="done">
       <h2 className="done__title">
-        ЗАЯВКА ПРИНЯТА
+        Заявка отправлена
       </h2>
       <p className="done__desc">
-        Держите телефон под рукой.
+        Шучу.
       </p>
       <p className="done__desc">
-        Скоро с Вами свяжется наш менеджер.
+        Это ведь тестовый вариант.
+      </p>
+      <p className="done__desc">
+        Но если вы тут - валидация номера прошла успешно!
       </p>
     </section>
   );

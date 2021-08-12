@@ -3,7 +3,7 @@ import InputMask from 'react-input-mask';
 
 import { Keyboard } from '../keyboard/keyboard';
 import { FormCheckbox } from './form-checkbox/form-checkbox';
-import { NotifyInvalid } from '../notify-invalid/notify-invalid';
+import { FormNotifyInvalid } from './form-notify-invalid/form-notify-invalid';
 
 import { api } from '../../server/api';
 import { PageContext } from '../../context';
@@ -134,8 +134,12 @@ function Form() {
       method="post"
     >
       <h2 className="form__title">
-        Введите ваш номер мобильного телефона
+        Введите ваш номер телефона
       </h2>
+
+      <p className="form__desc">
+        и прочтите этот подзаголовок
+      </p>
 
       <InputMask
         mask="+7(999)999-99-99"
@@ -148,10 +152,6 @@ function Form() {
         onChange={handleTelChange}
       />
 
-      <p className="form__desc">
-        и с Вами свяжется наш менеждер для дальнейшей консультации
-      </p>
-
       <Keyboard
         buttons={buttons}
         handleKeyboardClick={handleKeyboardClick}
@@ -159,7 +159,7 @@ function Form() {
         handleKeyboardBlur={handleKeyboardBlur}
       />
 
-      {invalidatedTelServer ? <NotifyInvalid /> : <FormCheckbox checked={checked} setChecked={setChecked} />}
+      {invalidatedTelServer ? <FormNotifyInvalid /> : <FormCheckbox checked={checked} setChecked={setChecked} />}
 
       <button
         className="form__submit btn"

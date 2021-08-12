@@ -1,81 +1,81 @@
-@keyframes show {
-  0%   { transform: translateX(110%) }
-  100% { transform: translateX(0) }
-}
-
 .qr {
-  box-sizing: border-box;
+  height: 100%;
 
-  position: absolute;
-  top: 22rem;
-  right: 0;
-
-  transform: translateX(110%);
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 25.1rem;
-  min-height: 35.7rem;
-  padding-top: 2rem;
-  padding-bottom: 1rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-
-  text-align: center;
-  background-color: @color-primary;
-
-  animation-delay: 5s;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  animation-name: show;
-}
-
-.qr__title,
-.qr__img-wrap {
-  margin-bottom: 2rem;
-}
-
-.qr__title {
-  font-weight: 500;
-  font-size: 1.6rem;
-  line-height: 1.9rem;
-
-  &-item {
-    display: block;
+  &:hover,
+  &:focus {
+    outline: none;
+    .qr__img {
+      border-radius: 0;
+    }
+    .qr__img-desc::before {
+      opacity: 0;
+    }
   }
 }
 
 .qr__img-wrap {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.qr__img {
+  overflow: hidden;
+  flex-shrink: 0;
+
+  object-fit: cover;
+  border-radius: 2rem;
+  transition: @s;
+
   width: 12.6rem;
   height: 12.6rem;
 }
 
-.qr__img {
-  .img-cover;
-}
-
-.qr__desc {
-  width: 12.6rem;
+.qr__img-desc {
+  position: relative;
+  margin-top: var(--margin-block);
   font-size: 1.4rem;
-  line-height: 1.6rem;
+  line-height: 1.9rem;
+
+  &--arrow {
+    &::before {
+      position: absolute;
+      content: '';
+      top: -0.4rem;
+      left: -2rem;
+      transform: scale(-1, 1);
+      width: 1.6rem;
+      height: 1.6rem;
+
+      background-image: url('../../../assets/img/arrow.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+
+      transition: @s;
+    }
+  }
 }
 
-.qr__btn {
-  width: 15.6rem;
-  height: 5.2rem;
-  margin-top: 2rem;
+.qr-aside {
+  position: absolute;
+  bottom: @gap;
+  right: @gap;
+  width: 31.4rem;
 
-  color: @color-primary;
-  background-color: @color-black;
-  border: 0.2rem solid @color-black;
-
-  &:hover,
-  &:focus {
-    color: @color-white;
+  .qr__img-wrap {
+    flex-direction: row-reverse;
   }
+  .qr__img {
+    width: 11rem;
+    height: 11rem;
+  }
+  .qr__img-desc {
+    margin-right: 2rem;
 
-  &:focus {
-    background-color: transparent;
+    font-weight: 500;
+    font-size: 1.6rem;
+    text-align: right;
+    text-transform: uppercase;
   }
 }

@@ -49,7 +49,7 @@ function Keyboard(props) {
         return (
           <button
             key={`keybord-btn-${correctValue}`}
-            className={`keyboard__btn ${btnResetClass} btn`}
+            className={`keyboard__btn ${btnResetClass} btn btn--big`}
             type="button"
             autoFocus={isAutofocus}
             value={correctValue}

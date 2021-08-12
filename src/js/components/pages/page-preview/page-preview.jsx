@@ -1,14 +1,10 @@
 import React from 'react';
 
-import { Qr } from '../../qr/qr';
-import { Video } from '../../video/video';
+import { Preview } from '../../preview/preview';
 
 function PagePreview() {
   return (
-    <div className="hero__wrap-hidden">
-      <Video />
-      <Qr />
-    </div>
+    <Preview />
   );
 }
 

@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { QrAside } from '../../qr-aside/qr-aside';
-import { ButtonClose } from '../../button-close/button-close';
+import { QrAside } from '../../share/qr/qr-aside';
+import { ButtonClose } from '../../share/button-close/button-close';
+
+import { FIGCAPTION_QR_ASIDE } from '../../../const';
 
 function PageBaseWrapper({ children }) {
   return (
@@ -11,13 +13,15 @@ function PageBaseWrapper({ children }) {
         {children}
       </div>
 
-      <QrAside />
       <ButtonClose />
+
+      <QrAside
+        figcaption={FIGCAPTION_QR_ASIDE}
+      />
     </>
   );
 }
 
 PageBaseWrapper.propTypes = { children: PropTypes.element };
-PageBaseWrapper.defaultProps = { children: PropTypes.element };
 
 export { PageBaseWrapper };

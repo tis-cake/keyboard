@@ -1,19 +1,10 @@
 .button-close {
   position: absolute;
-  top: 2rem;
-  right: 2rem;
-  width: 8.8rem;
-  height: 5.2rem;
-
-  background-color: @color-white;
-  border: 0.2rem solid @color-black;
-
-  transition: @s;
+  top: @gap;
+  right: @gap;
 
   &:hover,
   &:focus {
-    background-color: @color-black;
-
     &::before,
     &::after {
       background-color: @color-white;
@@ -29,8 +20,9 @@
     width: 2.8rem;
     height: 0.3rem;
 
-    background-color: @color-black;
     transition: @s;
+    border-radius: 2rem;
+    background-color: @color-black;
   }
 
   &::before {

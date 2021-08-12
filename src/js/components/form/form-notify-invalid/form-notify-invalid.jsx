@@ -1,6 +1,6 @@
 import React from 'react';
 
-function NotifyInvalid() {
+function FormNotifyInvalid() {
   return (
     <strong className="form__notify-invalid">
       Неверно введён номер
@@ -8,4 +8,4 @@ function NotifyInvalid() {
   );
 }
 
-export { NotifyInvalid };
+export { FormNotifyInvalid };
