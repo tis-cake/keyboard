@@ -1,0 +1,60 @@
+// hint height = 448 :
+// main height: 724; -
+// qr-aside: 110;    -
+// button: 66;       -
+// gap: 50 * 2;      -
+
+@keyframes show {
+  0%   { opacity: 0; visibility: hidden; }
+  5%   { opacity: 1; visibility: visible; }
+  95%   { opacity: 1; visibility: visible; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+.hint {
+  box-sizing: border-box;
+  position: absolute;
+
+  top: calc(44.8rem - (44.8rem / 4));
+  transform: translateY(-50%);
+  right: @gap;
+
+  width: 24.1rem;
+  padding: 3rem 2rem;
+
+  color: @color-black;
+  background-color: @color-white;
+  border-radius: 2rem;
+  border: 0.6rem solid @color-blue-opacity;
+
+  visibility: hidden;
+  opacity: 0;
+  transition: @s;
+
+  animation-delay: 1s;
+  animation-duration: 30s;
+  animation-fill-mode: forwards;
+  animation-name: show;
+}
+
+.hint__list {
+  display: grid;
+  grid-row-gap: 2rem;
+}
+
+.hint__item {
+  position: relative;
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: -0.3rem;
+    left: -0.9rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    background-color: @color-blue-opacity;
+    border-radius: 50%;
+  }
+}
+
+.hint__desc {}
