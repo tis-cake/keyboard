@@ -1,7 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-function QrFigurePreview({ figcaption }) {
+interface IQrFigureProps {
+  figcaption: string,
+}
+
+const QrFigurePreview: React.FC<IQrFigureProps> = ({ figcaption }) => {
   return (
     <figure className="qr__img-wrap">
       <img className="qr__img" src="assets/img/qr-code.png" alt="QR-код" width="126" height="126" />
@@ -13,9 +16,9 @@ function QrFigurePreview({ figcaption }) {
       ) : false }
     </figure>
   );
-}
+};
 
-function QrFigureAside({ figcaption }) {
+const QrFigureAside: React.FC<IQrFigureProps> = ({ figcaption }) => {
   return (
     <figure className="qr__img-wrap">
       <img className="qr__img" src="assets/img/qr-code.png" alt="QR-код" width="110" height="110" />
@@ -27,11 +30,8 @@ function QrFigureAside({ figcaption }) {
       ) : false }
     </figure>
   );
-}
+};
 
 const QrFigure = { QrFigurePreview, QrFigureAside };
-
-QrFigurePreview.propTypes = { figcaption: PropTypes.string };
-QrFigureAside.propTypes = { figcaption: PropTypes.string };
 
 export { QrFigure };

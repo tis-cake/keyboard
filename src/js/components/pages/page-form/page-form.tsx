@@ -4,7 +4,7 @@ import { Form } from '../../form/form';
 import { Hint } from '../../share/hint/hint';
 import { PageBaseWrapper } from '../page-base-wrapper/page-base-wrapper';
 
-function PageForm() {
+function PageForm(): React.ReactElement {
   return (
     <>
       <PageBaseWrapper>

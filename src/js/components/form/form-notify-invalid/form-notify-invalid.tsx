@@ -1,6 +1,6 @@
 import React from 'react';
 
-function FormNotifyInvalid() {
+function FormNotifyInvalid(): React.ReactElement {
   return (
     <strong className="form__notify-invalid">
       Неверно введён номер

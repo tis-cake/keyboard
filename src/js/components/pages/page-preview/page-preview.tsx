@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Preview } from '../../preview/preview';
 
-function PagePreview() {
+function PagePreview(): React.ReactElement {
   return (
     <Preview />
   );

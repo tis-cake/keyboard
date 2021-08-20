@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { QrAside } from '../../share/qr/qr-aside';
 import { ButtonClose } from '../../share/button-close/button-close';
 
 import { FIGCAPTION_QR_ASIDE } from '../../../const';
 
-function PageBaseWrapper({ children }) {
+function PageBaseWrapper({ children }): React.ReactElement {
   return (
     <>
       <div className="content-wrap">
@@ -18,7 +17,5 @@ function PageBaseWrapper({ children }) {
     </>
   );
 }
-
-PageBaseWrapper.propTypes = { children: PropTypes.element };
 
 export { PageBaseWrapper };

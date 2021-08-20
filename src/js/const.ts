@@ -1,27 +1,33 @@
-const TEL_UNDO_TITLE = 'Стереть';
-const TEL_UNDO_VALUE = -1;
-const TEL_ZERO_VALUE = 0;
-const BUTTON_UNDO_INDEX = 9;
-const BUTTON_ZERO_INDEX = 10;
+import { IEnumString, IEnumNumber } from './ts-services/interfaces';
 
-const FIGCAPTION_QR_PREVIEW = 'мой GitHub';
-const FIGCAPTION_QR_ASIDE = 'посмотри другие работы на GitHub';
+interface IKeyCodeInput {
+  [key: number]: string | number,
+}
 
-const AppRoute = {
+const TEL_UNDO_TITLE: string = 'Стереть';
+const TEL_UNDO_VALUE: number = -1;
+const TEL_ZERO_VALUE: number = 0;
+const BUTTON_UNDO_INDEX: number = 9;
+const BUTTON_ZERO_INDEX: number = 10;
+
+const FIGCAPTION_QR_PREVIEW: string = 'мой GitHub';
+const FIGCAPTION_QR_ASIDE: string = 'посмотри другие работы на GitHub';
+
+const AppRoute: IEnumString = {
   PAGE_DEFAULT: 'PAGE_PREVIEW',
   PAGE_PREVIEW: 'PAGE_PREVIEW',
   PAGE_FORM: 'PAGE_FORM',
   PAGE_FINAL: 'PAGE_FINAL',
 };
 
-const ArrowAction = {
+const ArrowAction: IEnumString = {
   ARROW_LEFT: 'ARROW_LEFT',
   ARROW_UP: 'ARROW_UP',
   ARROW_RIGHT: 'ARROW_RIGHT',
   ARROW_DOWN: 'ARROW_DOWN',
 };
 
-const KeyCode = {
+const KeyCode: IEnumNumber = {
   NUMBER_ONE: 49,
   NUMBER_SECOND: 50,
   NUMBER_THREE: 51,
@@ -42,7 +48,7 @@ const KeyCode = {
   ARROW_DOWN: 40,
 };
 
-const KeyCodeInputValue = {
+const KeyCodeInputValue: IKeyCodeInput = {
   [KeyCode.NUMBER_ONE]: 1,
   [KeyCode.NUMBER_SECOND]: 2,
   [KeyCode.NUMBER_THREE]: 3,

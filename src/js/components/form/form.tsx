@@ -18,12 +18,14 @@ import {
   KeyCodeInputValue,
 } from '../../const';
 
-const KEYBOARD_BUTTONS_COUNT = 11;
-const MAX_COUNT_DIGIT = 11;
-const TEL_INIT_VALUE = '+7(___)___-__-__';
+import { TKeyboardButtons } from '../../ts-services/types';
 
-let buttonFocusIndex;
-let buttonKeyboardFocus;
+const KEYBOARD_BUTTONS_COUNT: number = 11;
+const MAX_COUNT_DIGIT: number = 11;
+const TEL_INIT_VALUE: string = '+7(___)___-__-__';
+
+let buttonFocusIndex: number;
+let isButtonKeyboardFocus: boolean;
 
 const validateTelPerServer = (number, setValidatedTelServer, setInvalidatedTelServer) => {
   api(number).then((data) => {
@@ -35,36 +37,39 @@ const validateTelPerServer = (number, setValidatedTelServer, setInvalidatedTelSe
   });
 };
 
-function Form() {
-  const setCurrentPage = useContext(PageContext);
+function Form(): React.ReactElement  {
+  const { setCurrentPage } = useContext(PageContext);
   const [tel, setTel] = useState(TEL_INIT_VALUE);
   const [checked, setChecked] = useState(false);
   const [validatedTelServer, setValidatedTelServer] = useState(false);
   const [invalidatedTelServer, setInvalidatedTelServer] = useState(false);
-  const buttons = new Array(KEYBOARD_BUTTONS_COUNT).fill('').map(() => useRef(null));
 
-  const handleTelChange = (evt) => {
+  const buttons: TKeyboardButtons = new Array(KEYBOARD_BUTTONS_COUNT)
+    .fill('')
+    .map(() => useRef(null));
+
+  const handleTelChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     if (!evt.currentTarget.value) {
       return;
     }
     setTel(evt.currentTarget.value);
   };
 
-  const handleKeyboardClick = (evt) => {
+  const handleKeyboardClick = (evt: React.MouseEvent<HTMLButtonElement>): void => {
     if (evt.target === evt.currentTarget) {
       return;
     }
 
-    const inputValue = evt.target.value;
+    const inputValue: string = (evt.target as HTMLButtonElement).value;
     updateTelState(setTel, inputValue);
   };
 
-  const handleKeyboardFocus = (evt) => {
+  const handleKeyboardFocus = (evt: React.FocusEvent<HTMLButtonElement>): void => {
     if (evt.target === evt.currentTarget) {
       return;
     }
 
-    const inputValue = Number(evt.target.value);
+    const inputValue: number = Number(evt.target.value);
 
     switch (inputValue) {
       case TEL_UNDO_VALUE: {
@@ -82,18 +87,18 @@ function Form() {
       }
     }
 
-    buttonKeyboardFocus = true;
+    isButtonKeyboardFocus = true;
   };
 
-  const handleKeyboardBlur = () => {
-    buttonKeyboardFocus = false;
+  const handleKeyboardBlur = (): void => {
+    isButtonKeyboardFocus = false;
   };
 
-  const handleWindowKeyPress = (evt) => {
+  const handleWindowKeyPress = (evt: KeyboardEvent) => {
     if (KeyCodeInputValue[evt.keyCode] || KeyCodeInputValue[evt.keyCode] === TEL_ZERO_VALUE) {
-      const inputValue = KeyCodeInputValue[evt.keyCode];
+      const inputValue: any[string | number] = KeyCodeInputValue[evt.keyCode];
 
-      if (ArrowAction[inputValue] && buttonKeyboardFocus) {
+      if (ArrowAction[inputValue] && isButtonKeyboardFocus) {
         evt.preventDefault();
         updateFocus(buttons, buttonFocusIndex, inputValue);
 
@@ -104,11 +109,11 @@ function Form() {
     }
   };
 
-  const isValidatedCheckbox = checked;
-  const isValidatedTelLength = (!!tel && tel.match(/\d/g).length === MAX_COUNT_DIGIT);
-  const isValidatedForm = (validatedTelServer && isValidatedTelLength && isValidatedCheckbox);
+  const isValidatedCheckbox: boolean = checked;
+  const isValidatedTelLength: boolean = (!!tel && tel.match(/\d/g).length === MAX_COUNT_DIGIT);
+  const isValidatedForm: boolean = (validatedTelServer && isValidatedTelLength && isValidatedCheckbox);
 
-  const formInvalidClass = invalidatedTelServer
+  const formInvalidClass: string = invalidatedTelServer
     ? 'form--invalid'
     : '';
 

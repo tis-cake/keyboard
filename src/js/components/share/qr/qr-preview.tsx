@@ -5,7 +5,7 @@ import { QrFigure } from './qr-figure/qr-figure';
 
 const { QrFigurePreview } = QrFigure;
 
-function QrPreview(props) {
+function QrPreview(props): React.ReactElement {
   return (
     <QrWrapper {...props}>
       <QrFigurePreview {...props} />

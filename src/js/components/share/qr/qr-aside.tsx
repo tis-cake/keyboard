@@ -5,7 +5,7 @@ import { QrFigure } from './qr-figure/qr-figure';
 
 const { QrFigureAside } = QrFigure;
 
-function QrAside(props) {
+function QrAside(props): React.ReactElement {
   return (
     <aside className="qr-aside">
       <QrWrapper {...props}>

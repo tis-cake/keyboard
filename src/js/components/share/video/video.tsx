@@ -4,7 +4,7 @@ import React from 'react';
 // const VOLUME_MAX = 1;
 // const VOLUME_MIN = 0;
 
-function Video() {
+function Video(): React.ReactElement {
   // const handleVideoPlayerClick = () => {
   //   const videoEl = videoRef.current;
 
@@ -58,7 +58,7 @@ function Video() {
       // ref={videoRef}
       // onClick={handleVideoPlayerClick}
       autoPlay
-      muted="muted"
+      muted
     >
       <source src="assets/video/bg.mp4" type="video/mp4" />
       <source src="assets/video/test.ogv" type="video/ogg; codecs='theora, vorbis'" />

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import {
   TEL_UNDO_TITLE,
@@ -9,9 +8,18 @@ import {
   BUTTON_ZERO_INDEX,
 } from '../../const';
 
-const FOCUS_INIT_INDEX = 4;
+import { TKeyboardButtons } from '../../ts-services/types';
 
-function Keyboard(props) {
+interface IKeyboardProps {
+  buttons: TKeyboardButtons,
+  handleKeyboardClick(evt: React.MouseEvent): void,
+  handleKeyboardFocus(evt: React.FocusEvent): void,
+  handleKeyboardBlur(): void,
+}
+
+const FOCUS_INIT_INDEX: number = 4;
+
+const Keyboard: React.FC<IKeyboardProps> = (props) => {
   const {
     buttons,
     handleKeyboardClick,
@@ -27,14 +35,14 @@ function Keyboard(props) {
       onBlur={handleKeyboardBlur}
     >
       {buttons.map((button, index) => {
-        const isBtnReset = (index === BUTTON_UNDO_INDEX);
-        const isBtnZero = (index === BUTTON_ZERO_INDEX);
-        const isAutofocus = (index === FOCUS_INIT_INDEX);
-        const btnResetClass = (isBtnReset) ? 'keyboard__btn--reset' : '';
+        const isBtnReset: boolean = (index === BUTTON_UNDO_INDEX);
+        const isBtnZero: boolean = (index === BUTTON_ZERO_INDEX);
+        const isAutofocus: boolean = (index === FOCUS_INIT_INDEX);
+        const btnResetClass: string = (isBtnReset) ? 'keyboard__btn--reset' : '';
 
-        const correctIndex = index + 1;
-        let correctValue = correctIndex;
-        let correctTitle = correctIndex;
+        const correctIndex: number = index + 1;
+        let correctValue: number = correctIndex;
+        let correctTitle: string | number = correctIndex;
 
         if (isBtnReset) {
           correctValue = TEL_UNDO_VALUE;
@@ -61,18 +69,6 @@ function Keyboard(props) {
       })}
     </div>
   );
-}
-
-Keyboard.propTypes = {
-  handleKeyboardClick: PropTypes.func.isRequired,
-  handleKeyboardFocus: PropTypes.func.isRequired,
-  handleKeyboardBlur: PropTypes.func.isRequired,
-  buttons: PropTypes.arrayOf(
-    PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-    ]),
-  ).isRequired,
 };
 
 export { Keyboard };

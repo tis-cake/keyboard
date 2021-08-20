@@ -1,7 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-function FormCheckbox({ checked, setChecked }) {
+interface IFormCheckboxProps {
+  checked: boolean,
+  setChecked(isChecked: boolean): void,
+}
+
+const FormCheckbox: React.FC<IFormCheckboxProps> = ({ checked, setChecked }) => {
   return (
     <>
       <input
@@ -20,11 +24,6 @@ function FormCheckbox({ checked, setChecked }) {
       </label>
     </>
   );
-}
-
-FormCheckbox.propTypes = {
-  checked: PropTypes.bool.isRequired,
-  setChecked: PropTypes.func.isRequired,
 };
 
 export { FormCheckbox };

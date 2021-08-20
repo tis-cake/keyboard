@@ -5,8 +5,8 @@ import { QrPreview } from '../share/qr/qr-preview';
 import { PageContext } from '../../context';
 import { FIGCAPTION_QR_PREVIEW, AppRoute } from '../../const';
 
-function Preview() {
-  const setCurrentPage = useContext(PageContext);
+function Preview(): React.ReactElement {
+  const { setCurrentPage } = useContext(PageContext);
 
   return (
     <section className="preview">

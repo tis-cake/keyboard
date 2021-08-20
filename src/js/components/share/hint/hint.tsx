@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Hint() {
+function Hint(): React.ReactElement {
   return (
     <div className="hint">
       <h3 className="visually-hidden">

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Done() {
+function Done(): React.ReactElement {
   return (
     <section className="done">
       <h2 className="done__title">

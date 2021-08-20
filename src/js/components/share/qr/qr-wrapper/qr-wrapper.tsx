@@ -1,7 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-function QrWrapper({ blockClassName, children }) {
+interface IQrWrapperProps {
+  blockClassName: string,
+}
+
+const QrWrapper: React.FC<IQrWrapperProps> = ({ blockClassName, children }) => {
   const blockClassNameQR = blockClassName
     ? `${blockClassName} qr`
     : 'qr';
@@ -16,11 +19,6 @@ function QrWrapper({ blockClassName, children }) {
       {children}
     </a>
   );
-}
-
-QrWrapper.propTypes = {
-  blockClassName: PropTypes.string,
-  children: PropTypes.element.isRequired,
 };
 
 export { QrWrapper };

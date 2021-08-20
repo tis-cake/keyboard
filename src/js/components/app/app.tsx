@@ -8,11 +8,11 @@ import { Video } from '../share/video/video';
 import { AppRoute } from '../../const';
 import { PageContext } from '../../context';
 
-function App() {
+function App(): React.ReactElement {
   const [currentPage, setCurrentPage] = useState(AppRoute.PAGE_DEFAULT);
 
   return (
-    <PageContext.Provider value={setCurrentPage}>
+    <PageContext.Provider value={{ setCurrentPage }}>
       <main>
         <section className="hero">
           <div className="hero__wrap-hidden">

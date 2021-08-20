@@ -1,22 +1,24 @@
-const TOKEN = '2aef7c8e9e108bbae49cb8afb8533241';
+import { IEnumNumber } from '../ts-services/interfaces';
 
-const SuccessHTTPStatusRange = {
+const TOKEN: string = '2aef7c8e9e108bbae49cb8afb8533241';
+
+const SuccessHTTPStatusRange: IEnumNumber = {
   MIN: 200,
   MAX: 299,
 };
 
-// const ErrorHTTPStatusCode = {
+// const ErrorHTTPStatusCode: IEnumNumber = {
 //   NOT_FOUND: 404,
 //   BAD_TOKEN: 101,
 //   INVALID_API_FN: 103,
 //   NO_PHONE_NUMBER_PROVIDED: 210,
 // };
 
-const getUrl = (number) => {
+const getUrl = (number: string): string => {
   return `http://apilayer.net/api/validate?access_key=${TOKEN}&number=${number}`;
 };
 
-const checkStatus = (response) => {
+const checkStatus = (response): Promise<any> => {
   if (response.status < SuccessHTTPStatusRange.MIN || response.status > SuccessHTTPStatusRange.MAX) {
     const { status, statusText } = response;
     throw new Error(`${status}: ${statusText}`);
@@ -24,12 +26,15 @@ const checkStatus = (response) => {
   return response;
 };
 
-const api = (number) => {
-  const URL = getUrl(number);
+const api = (number: string) => {
+  const URL: string = getUrl(number);
+
   return fetch(URL)
     .then(checkStatus)
     .then((response) => response.json())
-    .catch((err) => { throw err; });
+    .catch((err) => {
+      throw err;
+    });
 };
 
 export { api };

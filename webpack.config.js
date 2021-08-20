@@ -40,14 +40,14 @@ const cssLoaders = (loaderExtra) => {
   return loaders;
 };
 
-const babelOptions = (presetExtra) => {
+const babelOptions = (...presetExtra) => {
   const options = {
     presets: ['@babel/preset-env'],
     plugins: [],
   };
 
   if (presetExtra) {
-    options.presets.push(presetExtra);
+    options.presets.push(...presetExtra);
   }
 
   return options;
@@ -55,7 +55,7 @@ const babelOptions = (presetExtra) => {
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
-  entry: './js/index.jsx',
+  entry: './js/index.tsx',
   output: {
     filename: filename('js'),
     path: path.resolve(__dirname, 'build'),
@@ -115,6 +115,22 @@ module.exports = {
         },
       },
       {
+        test: /\.ts$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: babelOptions('@babel/preset-typescript'),
+        },
+      },
+      {
+        test: /\.tsx$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: babelOptions('@babel/preset-react', '@babel/preset-typescript'),
+        },
+      },
+      {
         test: /\.(png|jpe?g|svg|gif|webp|eot|ttf|woff|woff2)$/,
         use: {
           loader: 'file-loader',
@@ -136,7 +152,7 @@ module.exports = {
   },
   devtool: isDevTool,
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   performance: {
     assetFilter(assetFilename) {
