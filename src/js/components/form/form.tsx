@@ -20,6 +20,8 @@ import {
 
 import { TKeyboardButtons } from '../../ts-services/types';
 
+type TSetStateTelServerStatus = React.Dispatch<React.SetStateAction<boolean>>;
+
 const KEYBOARD_BUTTONS_COUNT: number = 11;
 const MAX_COUNT_DIGIT: number = 11;
 const TEL_INIT_VALUE: string = '+7(___)___-__-__';
@@ -27,7 +29,7 @@ const TEL_INIT_VALUE: string = '+7(___)___-__-__';
 let buttonFocusIndex: number;
 let isButtonKeyboardFocus: boolean;
 
-const validateTelPerServer = (number, setValidatedTelServer, setInvalidatedTelServer) => {
+const validateTelPerServer = (number: string, setValidatedTelServer: TSetStateTelServerStatus, setInvalidatedTelServer: TSetStateTelServerStatus) => {
   api(number).then((data) => {
     if (!data.valid) {
       setInvalidatedTelServer(true);
@@ -94,7 +96,7 @@ function Form(): React.ReactElement  {
     isButtonKeyboardFocus = false;
   };
 
-  const handleWindowKeyPress = (evt: KeyboardEvent) => {
+  const handleWindowKeyPress = (evt: KeyboardEvent): void => {
     if (KeyCodeInputValue[evt.keyCode] || KeyCodeInputValue[evt.keyCode] === TEL_ZERO_VALUE) {
       const inputValue: any[string | number] = KeyCodeInputValue[evt.keyCode];
 
